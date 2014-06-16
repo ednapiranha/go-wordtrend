@@ -21,3 +21,10 @@ func TestGetTrending(t *testing.T) {
 	compare(t, 1, trending["these"])
 	compare(t, 2, trending["cat"])
 }
+
+func BenchmarkWordtrend(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		SetWords("These are cats Cat and dogs")
+		GetTrending()
+	}
+}

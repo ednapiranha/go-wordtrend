@@ -21,8 +21,9 @@ func setStemAndCount(word string) {
 
 	w := string(stemmer.Stem([]byte(cleanedWord)))
 
+	mutex.Lock()
 	trending[w] = trending[w] + 1
-	log.Println("saving ", w, trending[w])
+	mutex.Unlock()
 }
 
 func SetWords(sentence string) []string {
@@ -30,7 +31,7 @@ func SetWords(sentence string) []string {
 	wordLen := len(words)
 
 	for i := 0; i <= wordLen - 1; i++ {
-		go setStemAndCount(words[i])
+		setStemAndCount(words[i])
 	}
 
 	return words
